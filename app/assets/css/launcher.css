@@ -4172,7 +4172,7 @@ input:checked + .toggleSwitchSlider:before {
 #accountSelectConfirm {
     background: none;
     border: 1px solid #000000;
-    color: black;
+    color: white;
     font-family: 'Avenir Medium';
     font-weight: bold;
     border-radius: 2px;
@@ -4201,7 +4201,7 @@ input:checked + .toggleSwitchSlider:before {
     font-size: 10px;
     text-decoration: none;
     padding-top: 2.5px;
-    color: rgba(100, 100, 100, 0.75);
+    color: rgba(200, 200, 200, 0.75);
     transition: 0.25s ease;
     background: none;
     border: none;
