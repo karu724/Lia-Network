@@ -36,7 +36,8 @@ function toggleLaunchArea(loading){
         launch_content.style.display = 'none'
     } else {
         launch_details.style.display = 'none'
-        launch_content.style.display = 'inline-flex'
+        launch_content.style.display = '' // 이거 추가하고
+        // launch_content.style.display = 'inline-flex' // 여기 주석처리 했어요
     }
 }
 
@@ -289,7 +290,7 @@ let extractListener
  */
 function asyncSystemScan(mcVersion, launchAfter = true){
 
-    setLaunchDetails('Please wait..')
+    setLaunchDetails('잠시만 기다려주세요..')
     toggleLaunchArea(true)
     setLaunchPercentage(0, 100)
 
@@ -324,10 +325,10 @@ function asyncSystemScan(mcVersion, launchAfter = true){
                 // If the result is null, no valid Java installation was found.
                 // Show this information to the user.
                 setOverlayContent(
-                    'No Compatible<br>Java Installation Found',
-                    'In order to join WesterosCraft, you need a 64-bit installation of Java 8. Would you like us to install a copy?',
-                    'Install Java',
-                    'Install Manually'
+                    '호환되는<br>자바 설치가 없음',
+                    '64비트 Java 16이 설치되어 있어야 합니다. 설치하시겠습니까?',
+                    '자바 설치',
+                    '메뉴얼대로 설치'
                 )
                 setOverlayHandler(() => {
                     setLaunchDetails('Preparing Java Download..')
@@ -339,10 +340,10 @@ function asyncSystemScan(mcVersion, launchAfter = true){
                     $('#overlayContent').fadeOut(250, () => {
                         //$('#overlayDismiss').toggle(false)
                         setOverlayContent(
-                            'Java is Required<br>to Launch',
-                            'A valid x64 installation of Java 8 is required to launch.<br><br>Please refer to our <a href="https://github.com/dscalzi/HeliosLauncher/wiki/Java-Management#manually-installing-a-valid-version-of-java">Java Management Guide</a> for instructions on how to manually install Java.',
-                            'I Understand',
-                            'Go Back'
+                            '실행하려면<br>자바가 필요합니다',
+                            '시작하려면 Java 8의 유효한 x64 설치가 필요합니다.<br><br>Java를 수동으로 설치하는 방법은 <a href="https://github.com/dscalzi/HeliosLauncher/wiki/Java-Management#manually-installing-a-valid-version-of-java">Java Management Guide</a>를 참조하십시오.',
+                            '확인',
+                            '뒤로가기'
                         )
                         setOverlayHandler(() => {
                             toggleLaunchArea(false)
@@ -377,7 +378,7 @@ function asyncSystemScan(mcVersion, launchAfter = true){
             if(m.result === true){
 
                 // Oracle JRE enqueued successfully, begin download.
-                setLaunchDetails('Downloading Java..')
+                setLaunchDetails('자바 다운로드 중..')
                 sysAEx.send({task: 'execute', function: 'processDlQueues', argsArr: [[{id:'java', limit:1}]]})
 
             } else {
@@ -385,9 +386,9 @@ function asyncSystemScan(mcVersion, launchAfter = true){
                 // Oracle JRE enqueue failed. Probably due to a change in their website format.
                 // User will have to follow the guide to install Java.
                 setOverlayContent(
-                    'Unexpected Issue:<br>Java Download Failed',
-                    'Unfortunately we\'ve encountered an issue while attempting to install Java. You will need to manually install a copy. Please check out our <a href="https://github.com/dscalzi/HeliosLauncher/wiki">Troubleshooting Guide</a> for more details and instructions.',
-                    'I Understand'
+                    '알 수 없는 오류:<br>자바 다운로드 실패',
+                    'Java를 설치하는 동안 문제가 발생했습니다. 자바를 수동으로 설치해야 합니다. <a href="https://github.com/dscalzi/HeliosLauncher/wiki">Troubleshooting Guide</a>를 확인하세요.',
+                    '확인'
                 )
                 setOverlayHandler(() => {
                     toggleOverlay(false)
@@ -415,7 +416,7 @@ function asyncSystemScan(mcVersion, launchAfter = true){
                     remote.getCurrentWindow().setProgressBar(2)
 
                     // Wait for extration to complete.
-                    const eLStr = 'Extracting'
+                    const eLStr = '추출중'
                     let dotStr = ''
                     setLaunchDetails(eLStr)
                     extractListener = setInterval(() => {
@@ -441,7 +442,7 @@ function asyncSystemScan(mcVersion, launchAfter = true){
                         extractListener = null
                     }
 
-                    setLaunchDetails('Java Installed!')
+                    setLaunchDetails('자바 설치됨')
 
                     if(launchAfter){
                         dlAsync()
@@ -457,7 +458,7 @@ function asyncSystemScan(mcVersion, launchAfter = true){
     })
 
     // Begin system Java scan.
-    setLaunchDetails('Checking system info..')
+    setLaunchDetails('시스템 정보 확인 중..')
     sysAEx.send({task: 'execute', function: 'validateJava', argsArr: [ConfigManager.getDataDirectory()]})
 
 }
@@ -491,7 +492,7 @@ function dlAsync(login = true){
         }
     }
 
-    setLaunchDetails('Please wait..')
+    setLaunchDetails('잠시만 기다려주세요..')
     toggleLaunchArea(true)
     setLaunchPercentage(0, 100)
 
@@ -538,28 +539,28 @@ function dlAsync(login = true){
             switch(m.data){
                 case 'distribution':
                     setLaunchPercentage(20, 100)
-                    loggerLaunchSuite.log('Validated distibution index.')
-                    setLaunchDetails('Loading version information..')
+                    loggerLaunchSuite.log('배포 인덱스 검증됨.')
+                    setLaunchDetails('버전 정보 불러오는 중..')
                     break
                 case 'version':
                     setLaunchPercentage(40, 100)
-                    loggerLaunchSuite.log('Version data loaded.')
-                    setLaunchDetails('Validating asset integrity..')
+                    loggerLaunchSuite.log('버전 정보 로드됨.')
+                    setLaunchDetails('에셋 무결성 검증 중..')
                     break
                 case 'assets':
                     setLaunchPercentage(60, 100)
-                    loggerLaunchSuite.log('Asset Validation Complete')
-                    setLaunchDetails('Validating library integrity..')
+                    loggerLaunchSuite.log('에셋 무결성 검증됨')
+                    setLaunchDetails('라이브러리 무결성 검증중..')
                     break
                 case 'libraries':
                     setLaunchPercentage(80, 100)
-                    loggerLaunchSuite.log('Library validation complete.')
-                    setLaunchDetails('Validating miscellaneous file integrity..')
+                    loggerLaunchSuite.log('라이브러리 무결성 검증됨.')
+                    setLaunchDetails('기타 파일 무결성 확인 중..')
                     break
                 case 'files':
                     setLaunchPercentage(100, 100)
-                    loggerLaunchSuite.log('File validation complete.')
-                    setLaunchDetails('Downloading files..')
+                    loggerLaunchSuite.log('파일 무결성 확인됨.')
+                    setLaunchDetails('파일 다운로드 중..')
                     break
             }
         } else if(m.context === 'progress'){
@@ -577,7 +578,7 @@ function dlAsync(login = true){
                     remote.getCurrentWindow().setProgressBar(2)
 
                     // Download done, extracting.
-                    const eLStr = 'Extracting libraries'
+                    const eLStr = '라이브러리 추출 중..'
                     let dotStr = ''
                     setLaunchDetails(eLStr)
                     progressListener = setInterval(() => {
@@ -601,7 +602,7 @@ function dlAsync(login = true){
                         progressListener = null
                     }
 
-                    setLaunchDetails('Preparing to launch..')
+                    setLaunchDetails('시작 준비 중..')
                     break
             }
         } else if(m.context === 'error'){
@@ -611,8 +612,8 @@ function dlAsync(login = true){
                     
                     if(m.error.code === 'ENOENT'){
                         showLaunchFailure(
-                            'Download Error',
-                            'Could not connect to the file server. Ensure that you are connected to the internet and try again.'
+                            '다운로드 오류',
+                            '파일 서버와 연결할 수 없습니다. 인터넷 연결을 확인해주세요.'
                         )
                     } else {
                         showLaunchFailure(
@@ -656,7 +657,7 @@ function dlAsync(login = true){
                 const onLoadComplete = () => {
                     toggleLaunchArea(false)
                     if(hasRPC){
-                        DiscordWrapper.updateDetails('Loading game..')
+                        DiscordWrapper.updateDetails('게임 로딩중..')
                     }
                     proc.stdout.on('data', gameStateChange)
                     proc.stdout.removeListener('data', tempListener)
@@ -683,9 +684,9 @@ function dlAsync(login = true){
                 const gameStateChange = function(data){
                     data = data.trim()
                     if(SERVER_JOINED_REGEX.test(data)){
-                        DiscordWrapper.updateDetails('Exploring the Realm!')
+                        DiscordWrapper.updateDetails('게임 플레이 중')
                     } else if(GAME_JOINED_REGEX.test(data)){
-                        DiscordWrapper.updateDetails('Sailing to Westeros!')
+                        DiscordWrapper.updateDetails('게임 플레이 중')
                     }
                 }
 
@@ -705,7 +706,7 @@ function dlAsync(login = true){
                     proc.stdout.on('data', tempListener)
                     proc.stderr.on('data', gameErrorListener)
 
-                    setLaunchDetails('Done. Enjoy the server!')
+                    setLaunchDetails('게임이 곧 실행됩니다.')
 
                     // Init Discord Hook
                     const distro = DistroManager.getDistribution()
@@ -737,7 +738,7 @@ function dlAsync(login = true){
     // Begin Validations
 
     // Validate Forge files.
-    setLaunchDetails('Loading server information..')
+    setLaunchDetails('서버 정보 불러오는 중..')
 
     refreshDistributionIndex(true, (data) => {
         onDistroRefresh(data)

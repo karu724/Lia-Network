@@ -6,16 +6,16 @@ const {Client} = require('discord-rpc-patch')
 let client
 let activity
 
-exports.initRPC = function(genSettings, servSettings, initialDetails = 'Waiting for Client..'){
+exports.initRPC = function(genSettings, servSettings, initialDetails = '클라이언트 대기중..'){
     client = new Client({ transport: 'ipc' })
 
     activity = {
         details: initialDetails,
-        state: 'Server: ' + servSettings.shortId,
-        largeImageKey: servSettings.largeImageKey,
-        largeImageText: servSettings.largeImageText,
-        smallImageKey: genSettings.smallImageKey,
-        smallImageText: genSettings.smallImageText,
+        state: '누 온라인 플레이중',
+        largeImageKey: 'icon',
+        largeImageText: '누 온라인',
+        // smallImageKey: genSettings.smallImageKey,
+        // smallImageText: genSettings.smallImageText,
         startTimestamp: new Date().getTime(),
         instance: false
     }
@@ -25,7 +25,7 @@ exports.initRPC = function(genSettings, servSettings, initialDetails = 'Waiting 
         client.setActivity(activity)
     })
     
-    client.login({clientId: genSettings.clientId}).catch(error => {
+    client.login({clientId: "1020606249747890177"}).catch(error => {
         if(error.message.includes('ENOENT')) {
             logger.log('Unable to initialize Discord Rich Presence, no client detected.')
         } else {

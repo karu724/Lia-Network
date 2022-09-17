@@ -3809,7 +3809,7 @@ input:checked + .toggleSwitchSlider:before {
     justify-content: center;
     width: 100%;
     height: calc(100% - 22px);
-    background: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Main overlay content. */
@@ -3984,8 +3984,8 @@ input:checked + .toggleSwitchSlider:before {
 #members-div {
     width: 200px;
     height: 53px;
-    position: absolute;
-    transform: translate(606px, -52px);
+    position: relatives;
+    transform: translate(606px, -55px);
     border-radius: 26px;
     border: 5px solid white;
 }
