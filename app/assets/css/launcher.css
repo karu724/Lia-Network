@@ -1095,7 +1095,7 @@ body, button {
     display: flex;
     background-color: rgba(0, 0, 0, 0);
     transition: background-color 0.25s cubic-bezier(.02, .01, .47, 1);
-    background:url('../images/img-source/wp10471401-minecraft-forest-wallpapers.jpg')
+    background:url('../images/img-source/wp8324618-minecraft-forest-wallpapers.jpg')
 }
 
 /* Drop shadow displayed when content is scrolled out of view. */
@@ -1160,7 +1160,7 @@ body, button {
     text-align: left;
     margin: 5px 0px;
     padding: 0px 20px;
-    color: grey;
+    color: rgba(205 205 205);
     cursor: pointer;
     outline: none;
     transition: 0.25s ease;

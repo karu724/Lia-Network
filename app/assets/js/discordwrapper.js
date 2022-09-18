@@ -11,7 +11,7 @@ exports.initRPC = function(genSettings, servSettings, initialDetails = '클라�
 
     activity = {
         details: initialDetails,
-        state: '누 온라인 플레이중',
+        state: servSettings.shortId,
         largeImageKey: 'icon',
         largeImageText: '누 온라인',
         // smallImageKey: genSettings.smallImageKey,
