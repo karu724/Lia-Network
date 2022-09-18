@@ -1,6 +1,6 @@
 {
   "name": "neuonline",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "productName": "Neu Online",
   "description": "Modded Minecraft Launcher",
   "author": "Daniel Scalzi (https://github.com/dscalzi/)",
@@ -45,7 +45,8 @@
     "winreg": "^1.2.4"
   },
   "devDependencies": {
-    "electron": "^20.1.1",
+    "cli-truncate": "^3.1.0",
+    "electron": "^20.1.4",
     "electron-builder": "^23.3.3",
     "eslint": "^8.23.0"
   },
