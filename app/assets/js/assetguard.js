@@ -468,15 +468,15 @@ class JavaGuard extends EventEmitter {
                             break
                         }
                     }
-                } else if(verOb.major >= 16) {
-                    // TODO Make this logic better. Make java 16 required.
+                } else {
                     // Java 9+
-                    if(Util.mcVersionAtLeast('1.17', this.mcVersion)){
-                        meta.version = verOb
+                    if(Util.mcVersionAtLeast('1.13', this.mcVersion)){
+                        console.log('Java 9+ not yet tested.')
+                        /* meta.version = verOb
                         ++checksum
                         if(checksum === goal){
                             break
-                        }
+                        } */
                     }
                 }
                 // Space included so we get only the vendor.
@@ -608,7 +608,7 @@ class JavaGuard extends EventEmitter {
                                         const javaVer = javaVers[j]
                                         const vKey = javaVer.key.substring(javaVer.key.lastIndexOf('\\')+1)
                                         // Only Java 8 is supported currently.
-                                        if(parseFloat(vKey) === 16){
+                                        if(parseFloat(vKey) === 1.8){
                                             javaVer.get('JavaHome', (err, res) => {
                                                 const jHome = res.value
                                                 if(jHome.indexOf('(x86)') === -1){
